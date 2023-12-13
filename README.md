@@ -6,7 +6,7 @@
 
 今天看到一道24点类型的问题，题目来自[b站动态](https://b23.tv/kEQpICc)。因为原题题意不清晰，所以我在此描述得更清晰一些：
 
-对于`0 0 0`到`10 10 10`这11组数，请填入运算符凑出6。允许使用的二元运算符包括`** * / % + - << >> & | ^`，允许使用的一元运算符包括`sqrt, fac`（根号、阶乘），允许使用括号。每一次的二元运算结果都可以使用至多一次一元运算符，比如`((0! + 0!)! + 0!)! = 6`是合法的。其中除法需要除得尽才合法。
+对于`0 0 0`到`10 10 10`这11组数，请填入运算符凑出6。允许使用的二元运算符包括`** * / % + - << >> & | ^`，允许使用的一元运算符包括`!, sqrt, fac`（根号、阶乘），允许使用括号。每一次的二元运算结果都可以使用至多一次一元运算符，比如`((0! + 0!)! + 0!)! = 6`是合法的。其中除法需要除得尽才合法。
 
 [本文GitHub传送门](https://github.com/Hans774882968/apple-interview-24point-similar)
 
@@ -133,7 +133,7 @@ int main (int argc, char **argv) {
 
 接下来考虑一元运算符怎么实现。
 
-1. 对于叶子，我们在dfs外部枚举3进制位，约定0表示不变，1表示变为阶乘，2表示变为根号。如果要支持其他一元运算符，比如`- ~`，就相应改成枚举4、5进制位即可。
+1. 对于叶子，我们在dfs外部枚举4进制位，约定0表示不变，1表示变为阶乘，2表示变为根号，3表示取反。如果要支持其他一元运算符，比如`- ~`，就相应改成枚举5、6进制位即可。
 2. 对于非叶子，在dfs内部进行变换即可。
 
 现在我们已经理解了算法，接下来只需要讲下实现上的细节：
@@ -144,7 +144,10 @@ int main (int argc, char **argv) {
 
 下面我给出两版代码，`v2`相比于`v1`只多了上述一元运算符实现点的“2”，但代码量却达到了两倍。
 
-执行结果：`8 8 8`没有找到答案，其他的都找到了不少答案。不过如果允许构造一个集合的话，就有一个比较离谱的答案：`|{ 8, 8, 8 }|! = 6`。
+执行结果：
+
+1. `v1`执行时间可以接受，`v2`执行时间以分钟计。
+2. `8 8 8`没有找到答案，其他的都找到了不少答案。不过如果允许构造一个集合的话，就有一个比较离谱的答案：`|{ 8, 8, 8 }|! = 6`。
 
 `v1`
 
@@ -156,7 +159,7 @@ using LL = int64_t;
 
 const int N = 3, M = 11;
 bool vis[N];
-int p3[N + 1];
+int p4[N + 1];
 LL fac[M], a[N];
 string ans[N];
 set<string> ansSet;
@@ -286,22 +289,26 @@ int main(int, char **) {
   file.open("apple_interview_24point_similar-v1.txt", ios::out);
   streambuf *stream_buffer_out = cout.rdbuf();
   cout.rdbuf(file.rdbuf());
-  for (int i = 0; i <= N; i++) p3[i] = i ? p3[i - 1] * 3 : 1;
+  for (int i = 0; i <= N; i++) p4[i] = i ? p4[i - 1] * 4 : 1;
   for (int i = 0; i < M; i++) fac[i] = i ? fac[i - 1] * i : 1;
+  vector<size_t> ansSetSizes;
   for (int i = 0; i < M; i++) {
     ansSet.clear();
     bool hasAns = false;
-    for (int S = 0; S < p3[N]; S++) {
+    for (int S = 0; S < p4[N]; S++) {
       for (int j = 0; j < N; j++) {
         int v = 0;
         string strV;
-        int sVal = S / p3[j] % 3;
+        int sVal = S / p4[j] % 4;
         if (sVal == 1 && isPerfectSquare(i)) {
           v = sqrt(i);
           strV = "sqrt(" + to_string(i) + ")";
         } else if (sVal == 2) {
           v = fac[i];
           strV = "fac(" + to_string(i) + ")";
+        } else if (sVal == 3) {
+          v = !i;
+          strV = "!" + to_string(i);
         } else {
           v = i;
           strV = to_string(i);
@@ -311,6 +318,7 @@ int main(int, char **) {
       }
       hasAns |= dfs(0);
     }
+    ansSetSizes.push_back(ansSet.size());
     cout << i << " " << hasAns << endl;
     cout << "ansSet.size() = " << ansSet.size() << endl;
     string jsCode =
@@ -321,6 +329,10 @@ int main(int, char **) {
     jsCode += "].every((v) => v === 6);";
     cout << jsCode << endl;
   }
+  cout << "ansSetSizes = [";
+  ostream_iterator<size_t> out_iter(cout, ", ");
+  copy(ansSetSizes.cbegin(), ansSetSizes.cend(), out_iter);
+  cout << "]" << endl;
   cout.rdbuf(stream_buffer_out);
   file.close();
   return 0;

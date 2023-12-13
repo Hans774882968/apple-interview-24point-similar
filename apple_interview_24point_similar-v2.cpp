@@ -5,7 +5,7 @@ using LL = int64_t;
 
 const int N = 3, M = 11;
 bool vis[N];
-int p3[N + 1];
+int p4[N + 1];
 LL fac[M], a[N];
 string ans[N];
 set<string> ansSet;
@@ -63,6 +63,11 @@ bool dfs(int dep) {
           ans[i] = "sqrt((" + tmpAnsI + ") ** (" + tmpAnsJ + "))";
           if (dfs(dep + 1)) fl = true;
         }
+        if (true) {
+          a[i] = !originalTmpAI;
+          ans[i] = "!((" + tmpAnsI + ") ** (" + tmpAnsJ + "))";
+          if (dfs(dep + 1)) fl = true;
+        }
       }
       if (!powTooLarge(y, x)) {
         a[i] = round(pow(y, x));
@@ -77,6 +82,11 @@ bool dfs(int dep) {
         if (isPerfectSquare(originalTmpAI)) {
           a[i] = sqrt(originalTmpAI);
           ans[i] = "sqrt((" + tmpAnsJ + ") ** (" + tmpAnsI + "))";
+          if (dfs(dep + 1)) fl = true;
+        }
+        if (true) {
+          a[i] = !originalTmpAI;
+          ans[i] = "!((" + tmpAnsJ + ") ** (" + tmpAnsI + "))";
           if (dfs(dep + 1)) fl = true;
         }
       }
@@ -96,6 +106,11 @@ bool dfs(int dep) {
           ans[i] = "sqrt((" + tmpAnsI + ") / (" + tmpAnsJ + "))";
           if (dfs(dep + 1)) fl = true;
         }
+        if (true) {
+          a[i] = !originalTmpAI;
+          ans[i] = "!((" + tmpAnsI + ") / (" + tmpAnsJ + "))";
+          if (dfs(dep + 1)) fl = true;
+        }
       }
       if (x && y % x == 0) {
         a[i] = y / x;
@@ -110,6 +125,11 @@ bool dfs(int dep) {
         if (isPerfectSquare(originalTmpAI)) {
           a[i] = sqrt(originalTmpAI);
           ans[i] = "sqrt((" + tmpAnsJ + ") / (" + tmpAnsI + "))";
+          if (dfs(dep + 1)) fl = true;
+        }
+        if (true) {
+          a[i] = !originalTmpAI;
+          ans[i] = "!((" + tmpAnsJ + ") / (" + tmpAnsI + "))";
           if (dfs(dep + 1)) fl = true;
         }
       }
@@ -129,6 +149,11 @@ bool dfs(int dep) {
         ans[i] = "sqrt((" + tmpAnsI + ") * (" + tmpAnsJ + "))";
         if (dfs(dep + 1)) fl = true;
       }
+      if (true) {
+        a[i] = !originalTmpAI;
+        ans[i] = "!((" + tmpAnsI + ") * (" + tmpAnsJ + "))";
+        if (dfs(dep + 1)) fl = true;
+      }
 
       if (y) {
         a[i] = x % y;
@@ -143,6 +168,11 @@ bool dfs(int dep) {
         if (isPerfectSquare(originalTmpAI)) {
           a[i] = sqrt(originalTmpAI);
           ans[i] = "sqrt((" + tmpAnsI + ") % (" + tmpAnsJ + "))";
+          if (dfs(dep + 1)) fl = true;
+        }
+        if (true) {
+          a[i] = !originalTmpAI;
+          ans[i] = "!((" + tmpAnsI + ") % (" + tmpAnsJ + "))";
           if (dfs(dep + 1)) fl = true;
         }
       }
@@ -161,6 +191,11 @@ bool dfs(int dep) {
           ans[i] = "sqrt((" + tmpAnsJ + ") % (" + tmpAnsI + "))";
           if (dfs(dep + 1)) fl = true;
         }
+        if (true) {
+          a[i] = !originalTmpAI;
+          ans[i] = "!((" + tmpAnsJ + ") % (" + tmpAnsI + "))";
+          if (dfs(dep + 1)) fl = true;
+        }
       }
 
       a[i] = x + y;
@@ -175,6 +210,11 @@ bool dfs(int dep) {
       if (isPerfectSquare(originalTmpAI)) {
         a[i] = sqrt(originalTmpAI);
         ans[i] = "sqrt((" + tmpAnsI + ") + (" + tmpAnsJ + "))";
+        if (dfs(dep + 1)) fl = true;
+      }
+      if (true) {
+        a[i] = !originalTmpAI;
+        ans[i] = "!((" + tmpAnsI + ") + (" + tmpAnsJ + "))";
         if (dfs(dep + 1)) fl = true;
       }
 
@@ -192,6 +232,11 @@ bool dfs(int dep) {
         ans[i] = "sqrt((" + tmpAnsI + ") - (" + tmpAnsJ + "))";
         if (dfs(dep + 1)) fl = true;
       }
+      if (true) {
+        a[i] = !originalTmpAI;
+        ans[i] = "!((" + tmpAnsI + ") - (" + tmpAnsJ + "))";
+        if (dfs(dep + 1)) fl = true;
+      }
       a[i] = y - x;
       ans[i] = "(" + tmpAnsJ + ") - (" + tmpAnsI + ")";
       if (dfs(dep + 1)) fl = true;
@@ -204,6 +249,11 @@ bool dfs(int dep) {
       if (isPerfectSquare(originalTmpAI)) {
         a[i] = sqrt(originalTmpAI);
         ans[i] = "sqrt((" + tmpAnsJ + ") - (" + tmpAnsI + "))";
+        if (dfs(dep + 1)) fl = true;
+      }
+      if (true) {
+        a[i] = !originalTmpAI;
+        ans[i] = "!((" + tmpAnsJ + ") - (" + tmpAnsI + "))";
         if (dfs(dep + 1)) fl = true;
       }
 
@@ -221,6 +271,11 @@ bool dfs(int dep) {
         ans[i] = "sqrt((" + tmpAnsI + ") << (" + tmpAnsJ + "))";
         if (dfs(dep + 1)) fl = true;
       }
+      if (true) {
+        a[i] = !originalTmpAI;
+        ans[i] = "!((" + tmpAnsI + ") << (" + tmpAnsJ + "))";
+        if (dfs(dep + 1)) fl = true;
+      }
       a[i] = y << x;
       ans[i] = "(" + tmpAnsJ + ") << (" + tmpAnsI + ")";
       if (dfs(dep + 1)) fl = true;
@@ -233,6 +288,11 @@ bool dfs(int dep) {
       if (isPerfectSquare(originalTmpAI)) {
         a[i] = sqrt(originalTmpAI);
         ans[i] = "sqrt((" + tmpAnsJ + ") << (" + tmpAnsI + "))";
+        if (dfs(dep + 1)) fl = true;
+      }
+      if (true) {
+        a[i] = !originalTmpAI;
+        ans[i] = "!((" + tmpAnsJ + ") << (" + tmpAnsI + "))";
         if (dfs(dep + 1)) fl = true;
       }
 
@@ -250,6 +310,11 @@ bool dfs(int dep) {
         ans[i] = "sqrt((" + tmpAnsI + ") >> (" + tmpAnsJ + "))";
         if (dfs(dep + 1)) fl = true;
       }
+      if (true) {
+        a[i] = !originalTmpAI;
+        ans[i] = "!((" + tmpAnsI + ") >> (" + tmpAnsJ + "))";
+        if (dfs(dep + 1)) fl = true;
+      }
       a[i] = y >> x;
       ans[i] = "(" + tmpAnsJ + ") >> (" + tmpAnsI + ")";
       if (dfs(dep + 1)) fl = true;
@@ -262,6 +327,11 @@ bool dfs(int dep) {
       if (isPerfectSquare(originalTmpAI)) {
         a[i] = sqrt(originalTmpAI);
         ans[i] = "sqrt((" + tmpAnsJ + ") >> (" + tmpAnsI + "))";
+        if (dfs(dep + 1)) fl = true;
+      }
+      if (true) {
+        a[i] = !originalTmpAI;
+        ans[i] = "!((" + tmpAnsJ + ") >> (" + tmpAnsI + "))";
         if (dfs(dep + 1)) fl = true;
       }
 
@@ -279,6 +349,11 @@ bool dfs(int dep) {
         ans[i] = "sqrt((" + tmpAnsI + ") & (" + tmpAnsJ + "))";
         if (dfs(dep + 1)) fl = true;
       }
+      if (true) {
+        a[i] = !originalTmpAI;
+        ans[i] = "!((" + tmpAnsI + ") & (" + tmpAnsJ + "))";
+        if (dfs(dep + 1)) fl = true;
+      }
 
       a[i] = x | y;
       ans[i] = "(" + tmpAnsI + ") | (" + tmpAnsJ + ")";
@@ -292,6 +367,11 @@ bool dfs(int dep) {
       if (isPerfectSquare(originalTmpAI)) {
         a[i] = sqrt(originalTmpAI);
         ans[i] = "sqrt((" + tmpAnsI + ") | (" + tmpAnsJ + "))";
+        if (dfs(dep + 1)) fl = true;
+      }
+      if (true) {
+        a[i] = !originalTmpAI;
+        ans[i] = "!((" + tmpAnsI + ") | (" + tmpAnsJ + "))";
         if (dfs(dep + 1)) fl = true;
       }
 
@@ -309,6 +389,11 @@ bool dfs(int dep) {
         ans[i] = "sqrt((" + tmpAnsI + ") ^ (" + tmpAnsJ + "))";
         if (dfs(dep + 1)) fl = true;
       }
+      if (true) {
+        a[i] = !originalTmpAI;
+        ans[i] = "!((" + tmpAnsI + ") ^ (" + tmpAnsJ + "))";
+        if (dfs(dep + 1)) fl = true;
+      }
 
       a[i] = x;
       ans[i] = tmpAnsI;
@@ -323,22 +408,26 @@ int main(int, char **) {
   file.open("apple_interview_24point_similar-v2.txt", ios::out);
   streambuf *stream_buffer_out = cout.rdbuf();
   cout.rdbuf(file.rdbuf());
-  for (int i = 0; i <= N; i++) p3[i] = i ? p3[i - 1] * 3 : 1;
+  for (int i = 0; i <= N; i++) p4[i] = i ? p4[i - 1] * 4 : 1;
   for (int i = 0; i < M; i++) fac[i] = i ? fac[i - 1] * i : 1;
+  vector<size_t> ansSetSizes;
   for (int i = 0; i < M; i++) {
     ansSet.clear();
     bool hasAns = false;
-    for (int S = 0; S < p3[N]; S++) {
+    for (int S = 0; S < p4[N]; S++) {
       for (int j = 0; j < N; j++) {
         int v = 0;
         string strV;
-        int sVal = S / p3[j] % 3;
+        int sVal = S / p4[j] % 4;
         if (sVal == 1 && isPerfectSquare(i)) {
           v = sqrt(i);
           strV = "sqrt(" + to_string(i) + ")";
         } else if (sVal == 2) {
           v = fac[i];
           strV = "fac(" + to_string(i) + ")";
+        } else if (sVal == 3) {
+          v = !i;
+          strV = "!" + to_string(i);
         } else {
           v = i;
           strV = to_string(i);
@@ -348,6 +437,7 @@ int main(int, char **) {
       }
       hasAns |= dfs(0);
     }
+    ansSetSizes.push_back(ansSet.size());
     cout << i << " " << hasAns << endl;
     cout << "ansSet.size() = " << ansSet.size() << endl;
     string jsCode =
@@ -358,6 +448,10 @@ int main(int, char **) {
     jsCode += "].every((v) => v === 6);";
     cout << jsCode << endl;
   }
+  cout << "ansSetSizes = [";
+  ostream_iterator<size_t> out_iter(cout, ", ");
+  copy(ansSetSizes.cbegin(), ansSetSizes.cend(), out_iter);
+  cout << "]" << endl;
   cout.rdbuf(stream_buffer_out);
   file.close();
   return 0;
